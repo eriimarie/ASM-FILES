@@ -1,0 +1,66 @@
+# Homework X . Problem 1
+# This program calculates the value: Delta = b^2 - 4ac
+.text
+.globl main 
+main:
+
+ li $v0, 4 # prints "This program calculates the Delta for quadratic equations: "
+ la $a0, welcomeMessage
+
+syscall
+
+li $v0, 4 # prints "Please enter a: "
+la $a0, entera
+
+syscall
+
+li $v0, 5 # inputs the value a
+
+syscall
+move $t0, $v0
+li $v0, 4  # prints "Please enter b: "
+la $a0, enterb 
+
+syscall
+li $v0, 5 # inputs the value b
+
+
+syscall
+move $t1, $v0, 2
+  
+
+ li $v0, 4 # prints "Please enter c: "
+la $a0, enterc
+
+syscall
+li $v0, 5 # inputs the value c
+
+  syscall
+  
+move $t2, $v0
+
+# calculates b^2 and puts it in #s0
+mult $t1, $t1 mflo $s0
+
+li $t4, 4 # loads the constant 4 at $t4
+
+mult $t4, $t0 mflo $s1 # calculates 4*a and puts it in $s1
+
+
+mult $s1, $t2 mflo $s1 # calculates 4*a*b and puts it in $s1
+
+# calculates delta = b^2-4*a*c and puts it in $s0
+
+sub $s0, $s0, $s1
+# prints "Delta is: "
+la $a0, answer li $v0, 4 
+
+syscall
+# prints the output of the operation ($s0)
+move $a0, $s0 li $v0, 1 
+
+syscall
+# exits the program
+li $v0, 10 
+
+syscall
